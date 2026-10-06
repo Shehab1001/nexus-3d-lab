@@ -17,8 +17,8 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 1.05
 
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('#050607')
-scene.fog = new THREE.FogExp2('#050607', 0.07)
+scene.background = new THREE.Color('#07070b')
+scene.fog = new THREE.FogExp2('#07070b', 0.07)
 const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 100)
 camera.position.set(0, 0, 8)
 scene.add(camera)
@@ -29,9 +29,9 @@ scene.add(root)
 const ambient = new THREE.AmbientLight('#9fb0ba', 0.65)
 const key = new THREE.DirectionalLight('#eff8ff', 4.2)
 key.position.set(4, 5, 6)
-const acidLight = new THREE.PointLight('#dfff43', 8, 14, 2)
+const acidLight = new THREE.PointLight('#8c7bff', 8, 14, 2)
 acidLight.position.set(-3, 0, 3)
-const rim = new THREE.PointLight('#75cfff', 4, 12, 2)
+const rim = new THREE.PointLight('#72ddff', 4, 12, 2)
 rim.position.set(4, -2, -1)
 scene.add(ambient, key, acidLight, rim)
 
@@ -55,8 +55,8 @@ const shaderUniforms = {
   uTime: { value: 0 },
   uMouse: { value: new THREE.Vector2() },
   uIntensity: { value: 0.34 },
-  uColorA: { value: new THREE.Color('#dfff43') },
-  uColorB: { value: new THREE.Color('#26b8ff') },
+  uColorA: { value: new THREE.Color('#8c7bff') },
+  uColorB: { value: new THREE.Color('#54d9ff') },
   uFresnel: { value: 2.4 },
 }
 
@@ -108,15 +108,15 @@ coreGroup.add(core)
 
 const innerCore = new THREE.Mesh(
   new THREE.SphereGeometry(0.52, 48, 48),
-  new THREE.MeshBasicMaterial({ color: '#f4ffb5', transparent: true, opacity: 0.48, blending: THREE.AdditiveBlending })
+  new THREE.MeshBasicMaterial({ color: '#ddd7ff', transparent: true, opacity: 0.48, blending: THREE.AdditiveBlending })
 )
 coreGroup.add(innerCore)
 
 const rings = []
 ;[
-  [1.78, 0.028, [Math.PI / 2, 0, 0], '#dfff43'],
+  [1.78, 0.028, [Math.PI / 2, 0, 0], '#8c7bff'],
   [2.13, 0.018, [0.5, Math.PI / 2, 0.2], '#eff8ff'],
-  [2.52, 0.012, [1.1, 0.3, 0.8], '#74cfff'],
+  [2.52, 0.012, [1.1, 0.3, 0.8], '#72ddff'],
 ].forEach(([radius, tube, rotation, color], index) => {
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(radius, tube, 12, 180),
@@ -133,7 +133,7 @@ const shellGeo = new THREE.IcosahedronGeometry(0.62, 1)
 for (let i = 0; i < 12; i++) {
   const a = (i / 12) * Math.PI * 2
   const material = new THREE.MeshPhysicalMaterial({
-    color: i % 3 === 0 ? '#273036' : '#101316',
+    color: i % 3 === 0 ? '#25283a' : '#11111a',
     metalness: 0.88,
     roughness: 0.18,
     clearcoat: 0.9,
@@ -167,7 +167,7 @@ for (let i = 0; i < particleCount; i++) {
 }
 const particlesGeo = new THREE.BufferGeometry()
 particlesGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3))
-const particles = new THREE.Points(particlesGeo, new THREE.PointsMaterial({ color: '#bcd0ce', size: 0.018, transparent: true, opacity: 0.26 }))
+const particles = new THREE.Points(particlesGeo, new THREE.PointsMaterial({ color: '#c4c8e8', size: 0.018, transparent: true, opacity: 0.26 }))
 scene.add(particles)
 
 const physicsGroup = new THREE.Group()
@@ -184,7 +184,7 @@ groundBody.position.set(0, -2.4, 0)
 world.addBody(groundBody)
 world.addContactMaterial(new CANNON.ContactMaterial(physicsMaterial, physicsMaterial, { friction: 0.08, restitution: 0.78 }))
 
-const physicsPalette = ['#dfff43', '#a7b0b4', '#22282d', '#68c9ff']
+const physicsPalette = ['#8c7bff', '#a7b0b4', '#22282d', '#58d7ff']
 for (let i = 0; i < 22; i++) {
   const radius = 0.16 + (i % 5) * 0.045
   const body = new CANNON.Body({ mass: 0.7 + (i % 4) * 0.12, material: physicsMaterial })
@@ -198,7 +198,7 @@ for (let i = 0; i < 22; i++) {
   physicsGroup.add(mesh)
   physicsItems.push({ body, mesh })
 }
-const physicsFloor = new THREE.Mesh(new THREE.CircleGeometry(5.8, 80), new THREE.MeshBasicMaterial({ color: '#111516', transparent: true, opacity: 0.38 }))
+const physicsFloor = new THREE.Mesh(new THREE.CircleGeometry(5.8, 80), new THREE.MeshBasicMaterial({ color: '#101019', transparent: true, opacity: 0.38 }))
 physicsFloor.rotation.x = -Math.PI / 2
 physicsFloor.position.y = -2.39
 physicsGroup.add(physicsFloor)
@@ -210,7 +210,7 @@ const projectMeshes = []
 const projectData = [
   { x: -2.65, color: '#d7e4e8', emissive: '#6c8a98' },
   { x: 0, color: '#0b0d0e', emissive: '#627077' },
-  { x: 2.65, color: '#dfff43', emissive: '#8da919' },
+  { x: 2.65, color: '#8c7bff', emissive: '#5b47d1' },
 ]
 projectData.forEach((item, index) => {
   const group = new THREE.Group()
@@ -219,7 +219,7 @@ projectData.forEach((item, index) => {
     index === 1 ? new THREE.TorusKnotGeometry(0.72, 0.24, 160, 24) : new THREE.IcosahedronGeometry(0.9, index === 2 ? 4 : 2),
     new THREE.MeshPhysicalMaterial({ color: item.color, emissive: item.emissive, emissiveIntensity: index === 2 ? 0.7 : 0.15, metalness: index === 1 ? 0.98 : 0.45, roughness: 0.18, clearcoat: 1 })
   )
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.27, 0.012, 8, 120), new THREE.MeshBasicMaterial({ color: index === 2 ? '#dfff43' : '#819095', transparent: true, opacity: 0.45 }))
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.27, 0.012, 8, 120), new THREE.MeshBasicMaterial({ color: index === 2 ? '#8c7bff' : '#819095', transparent: true, opacity: 0.45 }))
   ring.rotation.x = Math.PI / 2 + index * 0.35
   group.add(planet, ring)
   group.userData.planet = planet
@@ -251,7 +251,7 @@ document.querySelector('#burstButton').addEventListener('click', () => {
 })
 
 const presets = {
-  holo: { a: '#dfff43', b: '#26b8ff', fresnel: 2.4, intensity: 0.34, bg: '#050607' },
+  holo: { a: '#8c7bff', b: '#54d9ff', fresnel: 2.4, intensity: 0.34, bg: '#07070b' },
   chrome: { a: '#e9f1f3', b: '#49555e', fresnel: 4.2, intensity: 0.12, bg: '#060708' },
   plasma: { a: '#ff3fa8', b: '#6c5cff', fresnel: 1.7, intensity: 0.55, bg: '#08050a' },
   void: { a: '#1d2429', b: '#030405', fresnel: 6.0, intensity: 0.18, bg: '#020303' },
