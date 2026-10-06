@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#050607" />
+  <meta name="theme-color" content="#07070b" />
   <meta name="description" content="NEXUS — a motion-led interactive 3D innovation lab using Three.js, GSAP, Cannon ES physics and custom GLSL shaders." />
   <title>NEXUS — Interactive 3D Innovation Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -181,7 +181,7 @@
         counter.style.fontSize = 'clamp(72px, 14vw, 220px)';
         const help = document.createElement('div');
         help.style.cssText = 'max-width:760px;margin-top:34px;color:#9aa1a2;font:500 12px/1.7 Inter,system-ui,sans-serif;letter-spacing:.02em';
-        help.innerHTML = 'This 3D experience uses browser ES modules. Windows blocks them when index.html is opened directly. Close this tab, then double-click <b style="color:#dfff43">START_NEXUS.bat</b> in the project folder. The launcher uses the Windows built-in PowerShell runtime, starts its own local server, then opens the correct URL automatically. No Python or Node.js installation is required.';
+        help.innerHTML = 'This 3D experience uses browser ES modules. Windows blocks them when index.html is opened directly. Close this tab, then double-click <b style="color:#8c7bff">START_NEXUS.bat</b> in the project folder. The launcher uses the Windows built-in PowerShell runtime, starts its own local server, then opens the correct URL automatically. No Python or Node.js installation is required.';
         document.querySelector('.boot__center')?.appendChild(help);
       }
     }
