@@ -25,7 +25,6 @@
 
   <canvas id="webgl" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
-
   <div class="cursor" aria-hidden="true"><span></span></div>
 
   <header class="nav">
@@ -169,19 +168,17 @@
 
   <noscript>This experience requires JavaScript.</noscript>
   <script>
-    // ES modules cannot reliably run when this file is opened directly with file://.
-    // Give the reviewer an immediate, useful recovery path instead of leaving the boot screen at 000.
     if (location.protocol === 'file:') {
       const boot = document.querySelector('.boot');
       const label = document.querySelector('.boot__label');
       const counter = document.querySelector('.boot__counter');
       if (boot && label && counter) {
-        label.textContent = 'LOCAL SERVER REQUIRED — RUN START_NEXUS.bat';
-        counter.textContent = 'RUN';
+        label.textContent = 'LOCAL SERVER REQUIRED';
+        counter.textContent = 'HTTP';
         counter.style.fontSize = 'clamp(72px, 14vw, 220px)';
         const help = document.createElement('div');
         help.style.cssText = 'max-width:760px;margin-top:34px;color:#9aa1a2;font:500 12px/1.7 Inter,system-ui,sans-serif;letter-spacing:.02em';
-        help.innerHTML = 'This 3D experience uses browser ES modules. Windows blocks them when index.html is opened directly. Close this tab, then double-click <b style="color:#8c7bff">START_NEXUS.bat</b> in the project folder. The launcher uses the Windows built-in PowerShell runtime, starts its own local server, then opens the correct URL automatically. No Python or Node.js installation is required.';
+        help.innerHTML = 'This experience uses browser ES modules, so it must run over HTTP/HTTPS. Deploy it to Vercel or start any local static server in this folder, for example <b style="color:#8c7bff">python -m http.server 8080</b>, then open <b style="color:#8c7bff">http://localhost:8080</b>.';
         document.querySelector('.boot__center')?.appendChild(help);
       }
     }
