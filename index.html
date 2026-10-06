@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050607" />
+  <meta name="description" content="NEXUS — a motion-led interactive 3D innovation lab using Three.js, GSAP, Cannon ES physics and custom GLSL shaders." />
+  <title>NEXUS — Interactive 3D Innovation Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <div class="boot" aria-hidden="true">
+    <div class="boot__top"><span>NEXUS / SPATIAL OS</span><span>BUILD 26.10</span></div>
+    <div class="boot__center">
+      <p class="boot__label">INITIALIZING INTERACTION ENGINE</p>
+      <div class="boot__counter">000</div>
+    </div>
+    <div class="boot__bottom"><span>GEOMETRY</span><i></i><span>SHADERS</span><i></i><span>PHYSICS</span><i></i><span>MOTION</span></div>
+  </div>
+
+  <canvas id="webgl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="cursor" aria-hidden="true"><span></span></div>
+
+  <header class="nav">
+    <a href="#hero" class="brand" data-cursor="HOME"><b>N</b><span>NEXUS / LAB</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#system" data-cursor="VIEW">System</a>
+      <a href="#physics" data-cursor="PLAY">Physics</a>
+      <a href="#materials" data-cursor="TUNE">Materials</a>
+      <a href="#projects" data-cursor="ENTER">Projects</a>
+    </nav>
+    <div class="live"><i></i><span>LIVE SYSTEM</span></div>
+  </header>
+
+  <aside class="telemetry" aria-label="Live scene telemetry">
+    <div><span>SCENE</span><b id="sceneLabel">CORE / 01</b></div>
+    <div><span>FPS</span><b id="fpsLabel">60</b></div>
+    <div><span>MODE</span><b id="modeLabel">REACTIVE</b></div>
+  </aside>
+
+  <main>
+    <section class="hero panel" id="hero" data-scene="core">
+      <div class="hero__meta reveal">INTERACTIVE DESIGN LAB / 2026</div>
+      <div class="hero__title kinetic" aria-label="Motion Matter Code">
+        <span>MOTION</span>
+        <span class="stroke">MATTER</span>
+        <span class="acid">CODE</span>
+      </div>
+      <div class="hero__footer reveal">
+        <p>We build spatial digital experiences where motion is structural, interaction is physical, and every scroll changes the world around you.</p>
+        <div class="scroll-cue"><span>SCROLL TO DISASSEMBLE</span><b>↓</b></div>
+      </div>
+      <div class="hud hud--a">CORE STATE / STABLE<br>POINTER FIELD / ACTIVE</div>
+      <div class="hud hud--b">01 — HERO SYSTEM<br>WEBGL / GPU RENDERED</div>
+    </section>
+
+    <section class="system panel" id="system" data-scene="exploded">
+      <div class="section-label reveal">01 / SYSTEM ARCHITECTURE</div>
+      <div class="system__copy">
+        <h2 class="reveal">EVERY EXPERIENCE<br>IS BUILT FROM <em>SYSTEMS.</em></h2>
+        <p class="reveal">The core does not disappear when the page changes. It evolves. Each shell, ring, light and interface state belongs to one persistent world.</p>
+      </div>
+      <div class="system__notes">
+        <article class="reveal"><span>01</span><h3>Spatial narrative</h3><p>Camera movement and geometry separation are synchronized to scroll progression rather than added as independent effects.</p></article>
+        <article class="reveal"><span>02</span><h3>Motion hierarchy</h3><p>Large cinematic motion defines chapters. Micro interactions communicate affordance and state.</p></article>
+        <article class="reveal"><span>03</span><h3>Continuous world</h3><p>One WebGL scene persists behind the interface so transitions feel like movement through a system, not page changes.</p></article>
+      </div>
+    </section>
+
+    <section class="tunnel panel" data-scene="tunnel">
+      <div class="tunnel__word kinetic">ENTER</div>
+      <div class="tunnel__word tunnel__word--right kinetic">THE CORE</div>
+      <p class="tunnel__note reveal">The camera passes through the reactor as the shell re-forms behind you.</p>
+    </section>
+
+    <section class="physics panel" id="physics" data-scene="physics">
+      <div class="section-label reveal">02 / PHYSICAL INTERACTION</div>
+      <div class="physics__copy">
+        <h2 class="reveal">DIGITAL OBJECTS<br>WITH <em>WEIGHT.</em></h2>
+        <p class="reveal">This scene runs a real rigid-body simulation. Click the floating matter to inject force into the system.</p>
+        <button class="action-btn" id="burstButton" type="button" data-cursor="BURST"><span>Inject impulse</span><b>↗</b></button>
+      </div>
+      <div class="physics__instruction">CLICK / TAP THE 3D MATTER</div>
+    </section>
+
+    <section class="materials panel" id="materials" data-scene="materials">
+      <div class="materials__head">
+        <div class="section-label reveal">03 / MATTER SIMULATOR</div>
+        <h2 class="reveal">TUNE THE<br><em>MATERIAL.</em></h2>
+      </div>
+      <div class="control-panel reveal">
+        <div class="control-panel__row">
+          <span>MATERIAL</span>
+          <div class="segmented" role="group" aria-label="Material preset">
+            <button class="is-active" data-material="holo">Holo</button>
+            <button data-material="chrome">Chrome</button>
+            <button data-material="plasma">Plasma</button>
+            <button data-material="void">Void</button>
+          </div>
+        </div>
+        <div class="control-panel__row">
+          <span>MOTION</span>
+          <div class="segmented" role="group" aria-label="Motion intensity">
+            <button data-motion="calm">Calm</button>
+            <button class="is-active" data-motion="reactive">Reactive</button>
+            <button data-motion="chaotic">Chaotic</button>
+          </div>
+        </div>
+        <div class="control-panel__row control-panel__row--meter">
+          <span>ENERGY FIELD</span>
+          <div class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects panel" id="projects" data-scene="projects">
+      <div class="projects__heading">
+        <div class="section-label reveal">04 / SELECTED EXPERIMENTS</div>
+        <h2 class="reveal">PROJECT<br><em>GALAXY.</em></h2>
+      </div>
+      <div class="project-list">
+        <article class="project reveal" data-project="0" data-cursor="ENTER">
+          <div class="project__index">01</div>
+          <div><h3>AURA</h3><p>Immersive commerce system</p></div>
+          <div class="project__tags"><span>R3F</span><span>GLSL</span><span>Motion</span></div>
+          <b>↗</b>
+        </article>
+        <article class="project reveal" data-project="1" data-cursor="ENTER">
+          <div class="project__index">02</div>
+          <div><h3>VOID</h3><p>Generative identity engine</p></div>
+          <div class="project__tags"><span>WebGL</span><span>Physics</span><span>Audio</span></div>
+          <b>↗</b>
+        </article>
+        <article class="project reveal" data-project="2" data-cursor="ENTER">
+          <div class="project__index">03</div>
+          <div><h3>PULSE</h3><p>Spatial product launch</p></div>
+          <div class="project__tags"><span>3D</span><span>Scroll</span><span>Shaders</span></div>
+          <b>↗</b>
+        </article>
+      </div>
+    </section>
+
+    <section class="manifesto panel" data-scene="final">
+      <div class="manifesto__line reveal">MOTION IS NOT</div>
+      <div class="manifesto__line manifesto__line--stroke reveal">DECORATION.</div>
+      <div class="manifesto__line manifesto__line--acid reveal">IT IS BEHAVIOR.</div>
+    </section>
+
+    <section class="contact panel" id="contact" data-scene="final">
+      <div class="section-label reveal">05 / NEW SIGNAL</div>
+      <h2 class="reveal">BUILD SOMETHING<br>THAT FEELS <em>ALIVE.</em></h2>
+      <a class="contact-link reveal" href="mailto:hello@nexus.design" data-cursor="SEND"><span>Start a project</span><b>↗</b></a>
+      <div class="stackline reveal"><span>THREE.JS</span><i>✦</i><span>GSAP</span><i>✦</i><span>CANNON ES</span><i>✦</i><span>GLSL</span><i>✦</i><span>LENIS</span></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>NEXUS® / EXPERIMENTAL INTERFACE</span>
+    <span>MOTION · MATTER · CODE</span>
+    <span>© 2026</span>
+  </footer>
+
+  <noscript>This experience requires JavaScript.</noscript>
+  <script>
+    // ES modules cannot reliably run when this file is opened directly with file://.
+    // Give the reviewer an immediate, useful recovery path instead of leaving the boot screen at 000.
+    if (location.protocol === 'file:') {
+      const boot = document.querySelector('.boot');
+      const label = document.querySelector('.boot__label');
+      const counter = document.querySelector('.boot__counter');
+      if (boot && label && counter) {
+        label.textContent = 'LOCAL SERVER REQUIRED — RUN START_NEXUS.bat';
+        counter.textContent = 'RUN';
+        counter.style.fontSize = 'clamp(72px, 14vw, 220px)';
+        const help = document.createElement('div');
+        help.style.cssText = 'max-width:760px;margin-top:34px;color:#9aa1a2;font:500 12px/1.7 Inter,system-ui,sans-serif;letter-spacing:.02em';
+        help.innerHTML = 'This 3D experience uses browser ES modules. Windows blocks them when index.html is opened directly. Close this tab, then double-click <b style="color:#dfff43">START_NEXUS.bat</b> in the project folder. The launcher uses the Windows built-in PowerShell runtime, starts its own local server, then opens the correct URL automatically. No Python or Node.js installation is required.';
+        document.querySelector('.boot__center')?.appendChild(help);
+      }
+    }
+  </script>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
